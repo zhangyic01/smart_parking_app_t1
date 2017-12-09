@@ -1,6 +1,21 @@
+/* "#" is id, "." is class. For child"," we do not need "."  */
+
 .selector-for-some-widget {
   box-sizing: content-box;
 }
+
+#navbar {
+    margin-left:auto;
+    margin-right:auto;
+}
+
+
+
+
+
+
+
+
 
 
     
