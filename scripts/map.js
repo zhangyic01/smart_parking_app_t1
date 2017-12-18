@@ -21,3 +21,7 @@ function initMap() {
       map: map
 	});
 }
+
+('.trigger, .slider').click(function() {
+  ('.slider').toggleClass('close');
+});

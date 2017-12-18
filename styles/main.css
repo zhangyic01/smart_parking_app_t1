@@ -1,12 +1,21 @@
 /* "#" is id, "." is class. For child"," we do not need "."  */
 
+/* when define class is wrapper, always define size because we use it as a block */
+
 .selector-for-some-widget {
   box-sizing: content-box;
 }
 
 #map {
+	height: 100%;
+	margin:0px;
+}
+
+/*TODO: Use ::after, after cellphone mode, we need to height to full height.  */
+#map_and_side_wrapper{
 	height: 800px;
 	margin:0px;
+	padding:0px;
 }
 
 
@@ -20,10 +29,22 @@
     margin-right: 0;
 }
 
-#info_panel{
+#side_info_panel{
 	border:solid 2px;
+	border-color: black;
+	height:100%;
+	text-align: center;
+}
+
+#overlay_info_panel{
 	border-color: skyblue;
-	height:800px;
+	background-color: deepskyblue;
+	height:250px;
+	position:absolute;
+	bottom:0px;
+}
+
+#copyright_claim{
 	text-align: center;
 }
 
@@ -32,7 +53,29 @@
 
 
 
-    
+
+/* animation control */
+
+
+.slider {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  overflow: hidden;
+  background-color: #000; color: #FFF;
+  transition: all 1s;
+}
+
+.slider.close {
+  top: 100vh;
+  height: 0;
+}
+
+
+
+
+/*.col-xs- PHONE	.col-sm- TABLES	.col-md- DESKTOP	.col-lg- DESKTOP>1200px   */
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) { 
 	.container {
