@@ -27,7 +27,8 @@
 	<div class="container-fluid">
 		
 		<!-- Navigation Bar -->
-		<div class="row" style="height:50px">
+		<div class="row" id="nav_menu_bar">
+
 
 			<nav class="navbar navbar-inverse navbar-fixed-top">
 				<div class="container col-xs-12 col-sm-offset-3">
@@ -57,21 +58,11 @@
 		</div>	 
 
 
-		<!-- map -->
+		<!-- map_and_side_wrapper -->
 		<div class="row">
 			<div id = "map_and_side_wrapper">
 				<div id = "map" class="col-xs-12  col-sm-8">
-					<!-- overlaying info panel -->
-					<div class="row">
-						<div id="overlay_info_panel" class="col-xs-10  col-xs-offset-1">
-							<button class="trigger">
-								Bring it
-							</button>
-							<div class="slider close">Leave it</div>
 
-						</div>
-
-					</div>
 				</div>
 
 			<!-- right side info panel-->
@@ -80,12 +71,38 @@
 				</div>
 			</div>
 
-			
 		</div>
+		
+		<!-- overlaying info panel -->
+		<div class="row">
+			<div id="overlay_info_panel" class="col-xs-12">
+				
+				<div class="search_bar row">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="Search Parking Lots">
+						<span class="input-group-btn">
+							<button class="btn btn-default" type="button">Search</button>
+						</span>
+					</div><!-- /input-group -->
+				</div>
+					
+
+				<div class="each_info_line row">
+					
+				</div>
+				<div class="each_info_line row">
+					
+				</div>
+				<div class="each_info_line row">
+					
+				</div>	
+			</div>				
+		</div>
+	
 		
 		<!-- copy right -->
 		<div class="row">
-			<div id = "copyright_claim" class="col-xs-12 col-sm-12 hidden-xs">
+			<div id = "copyright_claim" class="col-xs-12 col-sm-12  hidden-xs">
 				<h>Infomration/copy right/claim/</h>
 			</div>
 		</div>

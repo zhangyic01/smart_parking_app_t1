@@ -1,9 +1,44 @@
 /* "#" is id, "." is class. For child"," we do not need "."  */
 
 /* when define class is wrapper, always define size because we use it as a block */
+/* by default, all the global css default are for cellphone view */
 
 .selector-for-some-widget {
   box-sizing: content-box;
+}
+
+
+/* Define global level variables */
+:root {
+    --navbar_height:50px;
+	--info_line_height:80px; /*overlay info panel*/
+	--search_height:40px; /*overlay info panel*/
+	--num_info_line:3;
+	--copyright_claim_height:100px;
+}
+
+
+/* global used define */
+.row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* nav bar */
+#nav_menu_bar{
+	height:var(--navbar_height);
+}
+#navbar {
+    margin-left:auto;
+    margin-right:auto;
+}
+
+/* main body */
+/*TODO: Use ::after, after cellphone mode, we need to height to full height.  */
+#map_and_side_wrapper{
+	height:calc(100vh - var(--navbar_height) - var(--num_info_line)*var(--info_line_height) - var(--search_height)); /* navbar is 50px, each info line is 80px, we support 3*/
+	margin:0px;
+	padding:0px;
 }
 
 #map {
@@ -11,23 +46,6 @@
 	margin:0px;
 }
 
-/*TODO: Use ::after, after cellphone mode, we need to height to full height.  */
-#map_and_side_wrapper{
-	height: 800px;
-	margin:0px;
-	padding:0px;
-}
-
-
-#navbar {
-    margin-left:auto;
-    margin-right:auto;
-}
-
-.row {
-    margin-left: 0;
-    margin-right: 0;
-}
 
 #side_info_panel{
 	border:solid 2px;
@@ -36,16 +54,27 @@
 	text-align: center;
 }
 
+
+/* overlay_info_panel */
 #overlay_info_panel{
-	border-color: skyblue;
-	background-color: deepskyblue;
-	height:250px;
+	height:calc(var(--num_info_line)*var(--info_line_height) + var(--search_height));
 	position:absolute;
 	bottom:0px;
 }
+.search_bar{
+	height:var(--search_bar_height);
+}
+.each_info_line{
+	border-top: 1px dashed;
+	border-color:#A6A6A6;
+	height:var(--info_line_height);
+}
 
+
+/* copy right */
 #copyright_claim{
 	text-align: center;
+	height:var(--copyright_claim_height);
 }
 
 
@@ -57,37 +86,22 @@
 /* animation control */
 
 
-.slider {
-  position: absolute;
-  width: 100vw;
-  height: 100vh;
-  top: 0;
-  overflow: hidden;
-  background-color: #000; color: #FFF;
-  transition: all 1s;
-}
-
-.slider.close {
-  top: 100vh;
-  height: 0;
-}
-
-
 
 
 /*.col-xs- PHONE	.col-sm- TABLES	.col-md- DESKTOP	.col-lg- DESKTOP>1200px   */
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) { 
-	.container {
-		//background-color: aqua;
-	}
-	
+
 }
 
 /*  Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) { 
-
-
+	#map_and_side_wrapper{
+		height:calc(100vh - var(--navbar_height) - var(--copyright_claim_height));
+	}
+	#overlay_info_panel{
+		display: none;
+	}
 }
 
 /*  Large devices (desktops, 992px and up) */
@@ -97,5 +111,6 @@
 
 /*  Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) { 
-
+	
+	
 }
