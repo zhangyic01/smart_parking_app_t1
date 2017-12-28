@@ -54,9 +54,9 @@ function initAutocomplete() {
  
   //search button handling
   var searchBtn = document.getElementById('search-btn');
-  searchBtn.onclick = function() {
+  searchBtn.addEventListener('click', function() {
     input.focus();
-  }
+  });
   
 
   searchDestResults();
@@ -73,15 +73,16 @@ function searchDestResults() {
   
   //clear markers
   markers = [];
-  
+	
   //syntax is like a event, when places_changed event occurs, do function(). You can pass in a function like do_something()
   //or the function defines in here. Then you do not even need to give a function a name.
   console.log(searchBox);
+	
   searchBox.addListener('places_changed', function() {
     
     //Return all the results
     places = searchBox.getPlaces();
-    
+
     if(places.length == 0) {
       //TODO: feedback to users in some nicer way. Alert only works for website, not cellphone.
       alert("Your destination could not be found. Please provide more accurate destination address.");
@@ -98,7 +99,7 @@ function searchDestResults() {
     
     //set the viewport bound
     bounds = new google.maps.LatLngBounds();
-    
+	  
     //each place of places 
     places.forEach(function(place) {
       
@@ -141,11 +142,7 @@ function searchDestResults() {
     
     //zoom to the proper bound
     map.fitBounds(bounds);
-      
-    
 
-    
-    
   }); //end of addListener
 }
 
