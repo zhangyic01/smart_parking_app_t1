@@ -27,9 +27,12 @@ function initAutocomplete() {
   
   //define variables in this function scope
   var input;
-
+  
+		//clear markers
+  markers = [];
+				
   //instantiate the map
-		map = new google.maps.Map(document.getElementById('map'), {
+  map = new google.maps.Map(document.getElementById('map'), {
 				center: {lat: -33.8688, lng: 151.2195},
 				zoom: 13,
 				mapTypeId: 'roadmap'
@@ -40,12 +43,10 @@ function initAutocomplete() {
   
   //process searchbox to return places
   input = document.getElementById('pac-input');
-  google.maps.event.trigger(input, 'focus')
-  google.maps.event.trigger(input, 'keydown', {
-      keyCode: 13
-  });  
+
   
-  searchBox = new google.maps.places.SearchBox(input);  //Note this will define the boundlatlng
+  //instantiate searchBox instance, and feed with input	
+  searchBox = new google.maps.places.SearchBox(input);  
   
   //get instant bound all time once the map is loaded and searchBox is instantiated
   map.addListener('bounds_changed', function() {
@@ -54,9 +55,14 @@ function initAutocomplete() {
  
   //search button handling
   var searchBtn = document.getElementById('search-btn');
-  searchBtn.addEventListener('click', function() {
-    input.focus();
-  });
+  searchBtn.onclick = function() {
+    //local variable input. which has same value as the global variable input.
+    var input = document.getElementById('pac-input');
+  	google.maps.event.trigger(input, 'focus')
+  	google.maps.event.trigger(input, 'keydown', {
+  	    keyCode: 13
+  	});  
+  }
   
 
   searchDestResults();
@@ -71,15 +77,17 @@ function searchDestResults() {
   //scope variables
   var icon;
   
+  console.log("search Destination Results")	;
+	
   //clear markers
-  markers = [];
+  //markers = [];
 	
   //syntax is like a event, when places_changed event occurs, do function(). You can pass in a function like do_something()
   //or the function defines in here. Then you do not even need to give a function a name.
   console.log(searchBox);
 	
   searchBox.addListener('places_changed', function() {
-    
+	
     //Return all the results
     places = searchBox.getPlaces();
 
@@ -93,9 +101,12 @@ function searchDestResults() {
       return;      
     }
     
-    // Clear out the old markers.
+    // Clear out the old markers, and nearby search markers
+				console.log("clearing nearby markers ..." + nearbyMarkers)
     markers.forEach(function(marker) {marker.setMap(null);});
     markers = [];
+    nearbyMarkers.forEach(function(nearbyMarker) {nearbyMarker.setMap(null);});
+    nearbyMarkers = [];						
     
     //set the viewport bound
     bounds = new google.maps.LatLngBounds();
@@ -142,7 +153,8 @@ function searchDestResults() {
     
     //zoom to the proper bound
     map.fitBounds(bounds);
-
+    console.log("markers after search: " + nearbyMarkers);
+						
   }); //end of addListener
 }
 
@@ -151,7 +163,7 @@ function searchDestResults() {
 // 3. searchNearby
 ////////////////////////////////////
 function searchNearby(place){
-		var dest;
+  var dest;
   var request;
   
   dest = new google.maps.LatLng(place.geometry.location.lat(), place.geometry.location.lng());
