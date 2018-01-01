@@ -19,6 +19,45 @@ var place;
 var requestType = "restaurant";
 var searchRadius = "500";
 var searchBox;
+var supportedMultiDest = 6;  //come from setting
+var supportedNearby = 10;
+
+
+
+/////////////////////////////////////////
+// Upon page loading
+/////////////////////////////////////////
+// Testing code
+// $(document).ready(function(){
+// 
+//   var test_try_1 = $("#test_try_1");
+// 
+//   $("#flip_1").click(function(){
+//       test_try_1.slideToggle("slow");
+//   });
+// });
+  
+
+function bringInfoPanel(){
+  $(".each_info_line").slideToggle('slow');
+}
+
+function updateInfoPanelSize(numInfo){
+  
+      console.log("jaj");
+        var html = document.getElementsByTagName('html')[0];
+        html.style.cssText = "--num_info_line: 3";
+}
+
+
+
+
+
+
+
+
+
+
 
 /////////////////////////////////////////
 // 1. Loading Map
@@ -44,6 +83,7 @@ function initAutocomplete() {
   //process searchbox to return places
   input = document.getElementById('pac-input');
 
+
   
   //instantiate searchBox instance, and feed with input	
   searchBox = new google.maps.places.SearchBox(input);  
@@ -58,13 +98,12 @@ function initAutocomplete() {
   searchBtn.onclick = function() {
     //local variable input. which has same value as the global variable input.
     var input = document.getElementById('pac-input');
-  	google.maps.event.trigger(input, 'focus')
-  	google.maps.event.trigger(input, 'keydown', {
+  	 google.maps.event.trigger(input, 'focus')
+  	 google.maps.event.trigger(input, 'keydown', {
   	    keyCode: 13
-  	});  
+  	 });  
   }
   
-
   searchDestResults();
 }
 
@@ -86,6 +125,10 @@ function searchDestResults() {
   //or the function defines in here. Then you do not even need to give a function a name.
   console.log(searchBox);
 	
+
+  
+  
+  
   searchBox.addListener('places_changed', function() {
 	
     //Return all the results
@@ -95,11 +138,41 @@ function searchDestResults() {
       //TODO: feedback to users in some nicer way. Alert only works for website, not cellphone.
       alert("Your destination could not be found. Please provide more accurate destination address.");
       return;
-    } else if (places.length > 6) {
+    } else if (places.length > supportedMultiDest) {
       //this blocks to continue. So we would not find 100s of results to zoom the map too out. We restrict to 6 results for now.
       alert("Too many destinations were found. Please provide more accurate destination address.");
       return;      
-    }
+    } else {
+      places.forEach(function(place, idx) {
+        //adding a div
+
+        var html = document.getElementsByTagName('html')[0];
+        html.style.cssText = "--num_info_line: 1";
+
+        bringInfoPanel();
+        
+        /*
+        var infoDiv;
+        var cssInfoLineHeight;
+
+        cssInfoLineHeight = getComputedStyle(document.body);
+        
+        infoDiv = document.createElement("div");
+        infoDiv.style.borderTop = "1px";
+        infoDiv.style.borderColor = "#A6A6A6";
+        infoDiv.style.backgroundColor = "red";
+        infoDiv.style.height = cssInfoLineHeight.getPropertyValue("--info_line_height");
+        
+        infoDiv.appendChild(document.createTextNode('Destination index: ' + idx));
+        document.getElementById('info_panel_wrapper').appendChild(infoDiv);
+        */
+        
+      });
+      
+
+
+				}
+    //When places.length == 1, skip all the if-statement above.
     
     // Clear out the old markers, and nearby search markers
 				console.log("clearing nearby markers ..." + nearbyMarkers)
@@ -179,7 +252,7 @@ function searchNearby(place){
   
 }
 
-
+//3a. --- returns each nearby place in results array --- //
 function findResultsOfEachPlace(results, status) {
   console.log("Callback is called after search nearby, status: " + status + ", result.length: " + results.length);
 
@@ -197,7 +270,7 @@ function findResultsOfEachPlace(results, status) {
 }
 
 
-//Function to add markers and info panel for each marker.
+//3b. --- Function to add markers and info panel for each marker --- //
 function addMarker(place) {
 	 
   var marker = new google.maps.Marker({

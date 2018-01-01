@@ -10,10 +10,10 @@
 
 /* Define global level variables */
 :root {
-    --navbar_height:50px;
+ --navbar_height:50px;
 	--info_line_height:80px; /*overlay info panel*/
 	--search_height:40px; /*overlay info panel*/
-	--num_info_line:3;
+	--num_info_line:0;
 	--copyright_claim_height:100px;
 }
 
@@ -60,15 +60,42 @@
 	height:calc(var(--num_info_line)*var(--info_line_height) + var(--search_height));
 	position:absolute;
 	bottom:0px;
+ padding:0px;
 }
 .search_bar{
 	height:var(--search_bar_height);
+
 }
+
+.info_panel_wrapper{
+  overflow:auto;
+  overflow-x: hidden;
+  margin:0px;
+  padding:0px;
+}
+
+
 .each_info_line{
 	border-top: 1px dashed;
 	border-color:#A6A6A6;
 	height:var(--info_line_height);
+ display:none;
 }
+
+
+/* testing code
+#flip_1{
+    padding: 5px;
+    text-align: center;
+    background-color: #e5eecc;
+    border: solid 1px #c3c3c3; 
+}
+#test_try_1{
+  display:none; 
+  height:50px;
+  background-color: red;
+}
+*/
 
 
 /* copy right */
